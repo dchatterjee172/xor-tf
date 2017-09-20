@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import random as rn
 x=np.array([[0,0],[0,1],[1,0],[1,1]])
 y=np.array([[0],[1],[1],[0]])
 inp=tf.placeholder(dtype=tf.float32,shape=(1,2))
@@ -18,7 +19,7 @@ mini=tf.train.GradientDescentOptimizer(0.001).minimize(loss)
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     #writer = tf.summary.FileWriter("~/tfg", sess.graph)
-    for i in range(0,500):
-        for j in range(0,4):
-            sess.run(mini,feed_dict={inp:x[j].reshape(1,2),out:y[j].reshape(1,1)})
-            print(sess.run(loss,feed_dict={inp:x[j].reshape(1,2),out:y[j].reshape(1,1)})) 
+    for i in range(0,1000):
+        j=rn.randint(0,3)
+        sess.run(mini,feed_dict={inp:x[j].reshape(1,2),out:y[j].reshape(1,1)})
+        print(sess.run(loss,feed_dict={inp:x[j].reshape(1,2),out:y[j].reshape(1,1)})) 
