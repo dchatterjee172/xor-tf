@@ -13,13 +13,13 @@ w3=tf.get_variable("w3",[2,1])
 y1=tf.tanh(tf.matmul(inp,w1)+b1)
 y2=tf.tanh(tf.matmul(inp,w2)+b2)
 inp3=tf.transpose(tf.concat([y1,y2],0))
-y3=tf.sigmoid(tf.matmul(inp,w3))
-loss=tf.square(out-y3)/2.0
+y3=tf.sigmoid(tf.matmul(inp3,w3))
+loss=tf.pow(out-y3,2)/2.0
 mini=tf.train.GradientDescentOptimizer(0.001).minimize(loss)
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     #writer = tf.summary.FileWriter("~/tfg", sess.graph)
-    for i in range(0,1000):
+    for i in range(0,3000):
         j=rn.randint(0,3)
         sess.run(mini,feed_dict={inp:x[j].reshape(1,2),out:y[j].reshape(1,1)})
         print(sess.run(loss,feed_dict={inp:x[j].reshape(1,2),out:y[j].reshape(1,1)})) 
