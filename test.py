@@ -10,10 +10,10 @@ w2=tf.get_variable("w2",initializer=tf.random_normal(shape=(2,1),mean=0,stddev=1
 b1=tf.get_variable("b1",initializer=tf.random_normal(shape=(1,1),mean=0,stddev=1)) 
 b2=tf.get_variable("b2",initializer=tf.random_normal(shape=(1,1),mean=0,stddev=1))
 w3=tf.get_variable("w3",initializer=tf.random_normal(shape=(2,1),mean=0,stddev=1)) 
-y1=tf.nn.tanh(tf.matmul(inp,w1)+b1)
-y2=tf.nn.tanh(tf.matmul(inp,w2)+b2)
+y1=tf.nn.elu(tf.matmul(inp,w1)+b1)
+y2=tf.nn.elu(tf.matmul(inp,w2)+b2)
 inp3=tf.transpose(tf.concat([y1,y2],0))
-y3=tf.nn.tanh(tf.matmul(inp3,w3))
+y3=tf.nn.elu(tf.matmul(inp3,w3))
 loss=tf.pow(out-y3,2)
 mini=tf.train.GradientDescentOptimizer(0.02).minimize(loss)
 with tf.Session() as sess:
